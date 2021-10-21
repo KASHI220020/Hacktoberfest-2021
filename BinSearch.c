@@ -1,40 +1,26 @@
-// Binary Search Program - Iterative
 #include <stdio.h>
-void readArr(int[],int);
-int BinSearch(int[],int,int,int);
-void main()
-{
-    int A[20],n,key,i,x;
-    printf("Enter the number of elements: ");
-    scanf("%d",&n);
-    readArr(A,n);
-    printf("Enter the element to search: ");
-    scanf("%d",&key);
-    x=BinSearch(A,0,n-1,key);
-    if(x==-1)
-        printf("Element not found");
-    else
-        printf("Element found at position %d",x+1);
+int iterativeBinarySearch(int array[], int start_index, int end_index, int element){
+   while (start_index <= end_index){
+      int middle = start_index + (end_index- start_index )/2;
+      if (array[middle] == element)
+         return middle;
+      if (array[middle] < element)
+         start_index = middle + 1;
+      else
+         end_index = middle - 1;
+   }
+   return -1;
 }
-void readArr(int A[],int n)
-{
-    int i;
-    printf("Enter %d number of elements: ",n);
-    for(i=0;i<n;i++)
-        scanf("%d",&A[i]);
-}
-int BinSearch(int A[],int lwr,int upr,int key)
-{
-    int mid;
-    while(lwr<=upr)
-    {
-        mid=(lwr+upr)/2;
-        if(A[mid]==key)
-            return mid;
-        else if(A[mid]<key)
-            lwr=mid+1;
-        else
-            upr=mid-1;
-    }
-    return -1;
+int main(void){
+   int array[] = {1, 4, 7, 9, 16, 56, 70};
+   int n = 7;
+   int element = 16;
+   int found_index = iterativeBinarySearch(array, 0, n-1, element);
+   if(found_index == -1 ) {
+      printf("Element not found in the array ");
+   }
+   else {
+      printf("Element found at index : %d",found_index);
+   }
+   return 0;
 }
